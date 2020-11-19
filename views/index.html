@@ -7,27 +7,46 @@
   </head>
 
   <body>
-    <h1>URL Shortener Microservice</h1>
-    <main>
-      <section>
-        <form action="api/shorturl/new" method="POST">
-          <fieldset>
-            <legend>URL Shortener</legend>
-            <label for="url_input">URL:</label>
-            <input
-              id="url_input"
-              type="text"
-              name="url"
-              value="https://www.google.com/"
-              placeholder="https://www.google.com/"
-            />
-            <input type="submit" value="POST URL" />
-          </fieldset>
-        </form>
-      </section>
-    </main>
-    <footer>
-      <p>By <a href="#">Aman Bhargava</a></p>
-    </footer>
+  <div class="container">
+    <h2>API Project: URL Shortener Microservice</h2>
+    <h3>User Story: </h3>
+    <ol>
+      <li>I can POST a URL to
+        <code>[project_url]/api/shorturl/new</code> and I will receive a shortened URL in the JSON response.
+        <br>Example :
+        <code>{"original_url":"www.google.com","short_url":1}</code>
+      </li>
+      <li>If I pass an invalid URL that doesn't follow the
+        <code>http(s)://www.example.com(/more/routes)</code> format, the JSON response will contain an error like
+        <code>{"error":"invalid URL"}</code>
+      <li>When I visit the shortened URL, it will redirect me to my original link.</li>
+    </ol>
+
+    <h3>Short URL Creation </h3>
+    <p>
+      example:
+      <code>POST [project_url]/api/shorturl/new</code> -
+      <code>https://www.google.com</code>
+    </p>
+    <form action="api/shorturl/new" method="POST">
+      <label for="url_input">URL to be shortened</label>
+      <input id="url_input" type="text" name="url" value="https://www.google.com">
+      <input type="submit" value="POST URL">
+    </form>
+    <h3>Example Usage:</h3>
+    <a href="/api/shorturl/01">
+      [this_project_url]/api/shorturl/01
+    </a>
+
+    <h3>Will Redirect to:</h3>
+    <p>My Youtube Channel</p>
+  </div>
+  <div class="footer">
+    <p>
+      by
+      <a href="#">Aman Bhargava</a>
+    </p>
+  </div>
+</body>>
   </body>
 </html>
