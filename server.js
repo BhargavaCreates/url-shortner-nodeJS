@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const Url = require("./urlSchema");
 const dns = require("dns");
+const url = require("url");
 const valid = require("validator");
 
 app.use(bodyParser.urlencoded());
@@ -31,7 +32,26 @@ mongoose
   });
 
 app.post("/api/shorturl/new", async function (req, res) {
-  if (valid.isURL(req.body.url)) {
+  const isValid = (url) => {
+    var objUrl = new URL(req.body.url);
+
+    if (
+      valid.isURL(req.body.url) &&
+      dns.lookup(objUrl.hostname, (err, address, family) => {
+        if (err) {
+          return false;
+        } else {
+          return true;
+        }
+      })
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  if (isValid(req.body.url)) {
     await Url.findOne(
       { original_url: req.body.url },
       { original_url: 1, short_url: 1, _id: 0 }
@@ -57,9 +77,7 @@ app.post("/api/shorturl/new", async function (req, res) {
       }
     });
   } else {
-    res.json({
-      error: "Invalid Hostname",
-    });
+    res.json({ error: "invalid url" });
   }
 });
 
