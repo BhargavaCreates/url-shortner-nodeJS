@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const Url = require("./urlSchema");
 const dns = require("dns");
+const valid = require("validator");
 
 app.use(bodyParser.urlencoded());
 
@@ -30,17 +31,7 @@ mongoose
   });
 
 app.post("/api/shorturl/new", async function (req, res) {
-  const validURL = (url) => {
-    dns.lookup(req.body.url, (err, address) => {
-      if (!err && address) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-  };
-
-  if (validURL(req.body.url)) {
+  if (valid.isURL(req.body.url)) {
     await Url.findOne(
       { original_url: req.body.url },
       { original_url: 1, short_url: 1, _id: 0 }
