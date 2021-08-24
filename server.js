@@ -23,7 +23,8 @@ app.get("/", function (req, res) {
 });
 
 mongoose
-  .connect(process.env.DB_URI, {
+  .connect(process.env.DB_URI
+, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
