@@ -29,7 +29,10 @@ mongoose
   })
   .then(() => {
     console.log("connected");
-  });
+  }) 
+  .catch((err) => {
+    console.log(err)
+  })
 
 app.post("/api/shorturl/new", async function (req, res) {
   const isValid = (url) => {
